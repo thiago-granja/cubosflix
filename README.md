@@ -401,4 +401,4 @@ new Date(currentDate).toLocaleDateString("pt-BR", {
 
 **LEMBRE-SE**: Feito é melhor do que perfeito, mas não faça mal feito!!!
 
-###### tags: `front-end` `módulo 2` `HTML` `DOM` `CSS` `desafio`
+###### tags: `front-end` `HTML` `DOM` `CSS` `desafio`
