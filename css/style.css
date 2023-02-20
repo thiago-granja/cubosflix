@@ -71,15 +71,16 @@
 
   border: 1px solid var(--input-color);
   color: var(--text-color);
+  background-color: var(--input-bg);
 }
 
 .input::placeholder {
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 150%;
 
-  color: var(--input-color);
+  color: var(--text-color);
 }
 
 .movies-container {
@@ -164,7 +165,7 @@
   gap: 4px;
 
   font-size: 12px;
-  color: var(--rating-color);
+  color: #fdfdfd;
 }
 
 .subtitle {
