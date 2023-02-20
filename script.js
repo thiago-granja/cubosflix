@@ -9,6 +9,22 @@ const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.modal__close');
 let currentPage = 0;
 let movieList = [[], [], []];
+const darkMode = {
+    '--background': '#1B2028',
+    '--bg-secondary': '#2D3440',
+    '--text-color': '#FFFFFF',
+    '--input-color': '#665F5F',
+    '--input-border': '#665F5F',
+    '--input-bg': '#3E434D',
+    '--bg-modal': '#2D3440'};
+const lightMode =  {
+    '--background': '#fff',
+    '--bg-secondary': '#ededed',
+    '--text-color': '#1b2028',
+    '--input-color': '#979797',
+    '--input-border': '#fff',
+    '--input-bg': '#fff',
+    '--bg-modal': '#ededed'};
 
 pickTheme();
 spawnMovies();
@@ -48,33 +64,21 @@ movies.addEventListener('click', async (event) => {
 })
 
 function pickTheme() {
-    const theme = localStorage.getItem('theme');
+    let theme = localStorage.getItem('theme');
+    if (!theme) theme = 'light';
+
     if (theme === 'dark') {
-        root.style.setProperty('--background', '#1B2028');
-        root.style.setProperty('--bg-secondary', '#2D3440');
-        root.style.setProperty('--text-color', '#FFFFFF');
-        root.style.setProperty('--input-color', '#665F5F');
-        root.style.setProperty('--input-border', '#665F5F');
-        root.style.setProperty('--input-bg', '#3E434D');
-        root.style.setProperty('--bg-modal', '#2D3440');
-        logo.src= './assets/logo.svg';
-        themeBtn.src = './assets/dark-mode.svg';
-        previousBtn.src = './assets/arrow-left-light.svg';
-        nextBtn.src = './assets/arrow-right-light.svg';
-        closeBtn.src = './assets/close.svg'
+        for (key in darkMode) root.style.setProperty(`${key}`, `${darkMode[key]}`);
+        logo.src = `./assets/${theme}-mode/logo.svg`;
     } else {
-        root.style.setProperty('--background', '#fff');
-        root.style.setProperty('--bg-secondary', '#ededed');
-        root.style.setProperty('--text-color', '#1b2028');
-        root.style.setProperty('--input-color', '#979797');
-        root.style.setProperty('--input-bg', '#fff');
-        root.style.setProperty('--bg-modal', '#ededed');
-        logo.src= './assets/logo-dark.png';
-        themeBtn.src = './assets/light-mode.svg';
-        previousBtn.src = './assets/arrow-left-dark.svg';
-        nextBtn.src = './assets/arrow-right-dark.svg';
-        closeBtn.src = './assets/close-dark.svg'
+        for (key in lightMode) root.style.setProperty(`${key}`, `${lightMode[key]}`);
+        logo.src = `./assets/${theme}-mode/logo.png`;
     }
+
+    themeBtn.src = `./assets/${theme}-mode/theme.svg`;
+    previousBtn.src = `./assets/${theme}-mode/arrow-left.svg`;
+    nextBtn.src = `./assets/${theme}-mode/arrow-right.svg`;
+    closeBtn.src = `./assets/${theme}-mode/close.svg`;
 }
 
 function changeTheme() {
