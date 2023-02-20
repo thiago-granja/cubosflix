@@ -99,7 +99,6 @@ function spawnMovies() {
         info.classList = 'movie__info';
         title.classList = 'movie__title';
         rating.classList = 'movie__rating';
-        star.src = './assets/rating.svg';
     
         newMovie.appendChild(info);
         info.appendChild(title);
