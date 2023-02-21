@@ -26,33 +26,36 @@
         <img class="btn-theme" alt="Botão de tema" />
       </div>
     </header>
-    <div class="container size">
-      <div class="movies-container">
-        <img class="btn-prev" alt="arrow left"/>
-        <div class="movies"></div>
-        <img class="btn-next" alt="arrow right"/>
-      </div>
-
-      <div class="highlight size">
-        <a class="highlight__video-link" href="#" target="_blank">
-          <div class="highlight__video">
-            <img src="./assets/play.svg" alt="Play" />
+    <main>
+      <div class="container size">
+        <div class="movies-container">
+          <img class="btn-prev" alt="arrow left"/>
+          
+          <img class="btn-next" alt="arrow right"/>
+        </div>
+  
+        <div class="highlight size">
+          <a class="highlight__video-link" href="#" target="_blank">
+            <div class="highlight__video">
+              <img src="./assets/play.svg" alt="Play" />
+            </div>
+          </a>
+          <div class="highlight__info">
+            <div class="highlight__title-rating">
+              <h1 class="highlight__title"></h1>
+              <span class="highlight__rating"></span>
+            </div>
+            <div class="highlight__genre-launch">
+              <span class="highlight__genres"></span>
+              /
+              <span class="highlight__launch"></span>
+            </div>
+            <p class="highlight__description"></p>
           </div>
-        </a>
-        <div class="highlight__info">
-          <div class="highlight__title-rating">
-            <h1 class="highlight__title"></h1>
-            <span class="highlight__rating"></span>
-          </div>
-          <div class="highlight__genre-launch">
-            <span class="highlight__genres"></span>
-            /
-            <span class="highlight__launch"></span>
-          </div>
-          <p class="highlight__description"></p>
         </div>
       </div>
-    </div>
+    </main>
+    
     <div class="modal hidden">
       <div class="modal__body">
         <img alt="Close" class="modal__close" />

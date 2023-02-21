@@ -16,3 +16,12 @@ body {
   background: var(--background);
   font-family: 'Roboto', sans-serif;
 }
+
+main {
+  overflow: hidden;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
