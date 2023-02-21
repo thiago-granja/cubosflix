@@ -8,6 +8,8 @@ const movies = document.querySelector('.movies');
 const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.modal__close');
 let currentPage = 0;
+let nextPage = 1;
+let previousPage = 2;
 let movieList = [[], [], []];
 const darkMode = {
     '--background': '#1B2028',
@@ -16,7 +18,8 @@ const darkMode = {
     '--input-color': '#665F5F',
     '--input-border': '#665F5F',
     '--input-bg': '#3E434D',
-    '--bg-modal': '#2D3440'};
+    '--bg-modal': '#2D3440'
+};
 const lightMode =  {
     '--background': '#fff',
     '--bg-secondary': '#ededed',
@@ -24,7 +27,8 @@ const lightMode =  {
     '--input-color': '#979797',
     '--input-border': '#fff',
     '--input-bg': '#fff',
-    '--bg-modal': '#ededed'};
+    '--bg-modal': '#ededed'
+};
 
 pickTheme();
 spawnMovies();
@@ -34,7 +38,7 @@ highlightMovie(436969);
 
 themeBtn.addEventListener('click', changeTheme);
 
-closeBtn.addEventListener('click', () => {
+modal.addEventListener('click', () => {
     modal.classList.toggle("hidden");
 })
 
@@ -203,3 +207,6 @@ function showModal(movie){
     modal.classList.toggle("hidden");
 }
 
+//create 3 .movies containers (1 on html already);
+//spawn 6 movies on each (whole list);
+//apply 0 opacity to previous and next pages and 1 on active page;
