@@ -5,11 +5,11 @@ const previousBtn = document.querySelector('.btn-prev');
 const nextBtn = document.querySelector('.btn-next');
 const input = document.querySelector('.input');
 const carouselDisplay = document.querySelector('.movies-container');
-let carouselPages = document.querySelectorAll('.movies');
 const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.modal__close');
 const PAGE_QTY = 3;
 const MOVIES_PER_PAGE = 6;
+let carouselPages;
 let currentPage = 0;
 let nextPage = 1;
 let previousPage = 2;
@@ -38,16 +38,6 @@ startCarousel();
 highlightMovie(436969);
 
 
-previousBtn.addEventListener('click', () => {
-    (currentPage === 0 ? currentPage = 2 : currentPage--)
-    swipe();
-})
-
-nextBtn.addEventListener('click', () => {
-    (currentPage === 2 ? currentPage = 0 : currentPage++)
-    swipe();
-})
-
 input.addEventListener('keydown', (event) => {  
     if (event.key != 'Enter' && event.key != 'NumpadEnter') return;
     currentPage = 0;
@@ -60,9 +50,24 @@ input.addEventListener('keydown', (event) => {
 })
 
 carouselDisplay.addEventListener('click', async (event) => {
-    if (event.target.classList != 'movie') return;
-    const modalMovie = await fetchMovie(event.target.id);
-    showModal(modalMovie);
+    const targetClass = event.target.classList[0];
+    if (targetClass != 'movie' && targetClass != 'btn-prev' && targetClass != 'btn-next') return
+    
+    if (targetClass === 'movie') {
+        const modalMovie = await fetchMovie(event.target.id);
+        showModal(modalMovie);
+        return
+    }
+    if (targetClass === 'btn-prev') {
+        (currentPage === 0 ? currentPage = 2 : currentPage--)
+        swipe();
+        return
+    }
+    if (targetClass === 'btn-next') {
+        (currentPage === 2 ? currentPage = 0 : currentPage++)
+        swipe();
+        return
+    }
 })
 
 modal.addEventListener('click', () => {
@@ -130,10 +135,27 @@ async function updateDisplay(query) {
     }
 }
 
-async function startCarousel(query) {
+async function startCarousel() {
     await getMovies();
     await spawnStructure();
     updateDisplay();
+}
+
+function direction() {
+    nextPage = ((currentPage + 1) > 2 ? nextPage = 0 : nextPage = currentPage + 1)
+    previousPage = ((currentPage - 1) < 0 ? previousPage = 2 : previousPage = currentPage - 1)
+}
+
+function swipe() {
+    direction();
+    carouselPages[currentPage].classList = 'movies active';
+    carouselPages[nextPage].classList = 'movies next';
+    carouselPages[previousPage].classList = 'movies previous';
+}
+
+async function fetchMovie(id) {
+    const response = await api.get(`/3/movie/${id}?language=pt-BR`);
+    return response.data;
 }
 
 async function highlightMovie(id) {
@@ -160,11 +182,6 @@ async function highlightMovie(id) {
     highlightGenre.innerHTML = `${genres.join(', ')}`;
 }
 
-async function fetchMovie(id) {
-    const response = await api.get(`/3/movie/${id}?language=pt-BR`);
-    return response.data;
-}
-
 function showModal(movie){
     const title = document.querySelector('.modal__title');
     const img = document.querySelector('.modal__img');
@@ -188,22 +205,10 @@ function showModal(movie){
     modal.classList.toggle("hidden");
 }
 
-function direction() {
-    nextPage = ((currentPage + 1) > 2 ? nextPage = 0 : nextPage = currentPage + 1)
-    previousPage = ((currentPage - 1) < 0 ? previousPage = 2 : previousPage = currentPage - 1)
-}
-
-function swipe() {
-    direction();
-    carouselPages[currentPage].classList = 'movies active';
-    carouselPages[nextPage].classList = 'movies next';
-    carouselPages[previousPage].classList = 'movies previous';
-}
-
 function pickTheme() {
     let theme = localStorage.getItem('theme');
     if (!theme) theme = 'light';
-
+    
     if (theme === 'dark') {
         for (key in darkMode) root.style.setProperty(`${key}`, `${darkMode[key]}`);
         logo.src = `./assets/${theme}-mode/logo.svg`;
@@ -224,5 +229,3 @@ function changeTheme() {
     localStorage.setItem('theme', theme);
     pickTheme();
 }
-
-// checar casos de try catch - quando procura matrix, 1 deles falha em trazer a imagem. colocar UNAVAILABLE no lugar da imagem do poster?
