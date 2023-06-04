@@ -51,6 +51,7 @@
   line-height: 150%;
 
   color: var(--text-color);
+  user-select: none;
 }
 
 .container {
